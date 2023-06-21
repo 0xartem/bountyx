@@ -2,18 +2,17 @@ import { useEffect, useState } from 'react'
 
 import { BountyxMetadata } from '@/bountyxlib/types/bountyxdata'
 import { useBountyxSignAllBounties } from '@/hooks/bountyx/use-bountyx-sign-bounty'
-import { getAllBounties } from '@/lib/api/buidlboxApi'
-import { getAllGroups } from '@/lib/api/buidlboxApi'
 
 import { BountiesList } from './bounties-list'
+import { getAllGroups } from '@/lib/api/hackathon-providers/buidlbox/buidlbox-api'
 
 export const EndorseBountyCard = () => {
   const [bounties, setBounties] = useState<BountyxMetadata[]>([])
   const [group, setGroup] = useState<string>('')
 
-  useEffect(() => {
-    setBounties(getAllBounties())
-  }, [])
+  // useEffect(() => {
+  //   setBounties(getAllBounties())
+  // }, [])
 
   const [isSigned, setIsSigned] = useState<boolean>(false)
 
