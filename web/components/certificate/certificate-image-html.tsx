@@ -3,7 +3,7 @@ import * as React from 'react'
 import { BountyxMetadata } from '@/bountyxlib/types/bountyxdata'
 
 import { BountyIconListItem } from './bounty-icon-list-item'
-import { LocalCertData } from '@/app/(claim)/claim/page'
+import { LocalCertData } from '@/lib/bountyx/bountyx-hypercert-utils'
 
 export default function CertificateImageHtml({
   localCertData,

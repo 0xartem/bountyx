@@ -16,7 +16,7 @@ import { useWaitForTransaction } from 'wagmi'
 import { EligibleGroupedClaim } from '@/lib/hyperdrop/hyperdrop-eligibilty'
 import { hexlify } from 'ethers/lib/utils.js'
 import { BountyxMetadataCollection } from '@/bountyxlib/types/bountyxcollection'
-import { FractionOwnership } from '@/app/(claim)/claim/page'
+import { FractionOwnership } from '@/lib/bountyx/bountyx-hypercert-utils'
 
 export const DEFAULT_ALLOWLIST_PERCENTAGE = 50
 

@@ -2,7 +2,6 @@ import { assertNever } from './common'
 import { isAddress } from 'ethers/lib/utils'
 import _ from 'lodash'
 
-
 /**
  * Takes a string and splits into a list of strings
  * - Currently only works on ',' and new lines

@@ -107,7 +107,7 @@ export const HyperCertListItem = ({
               <div className="text-l font-bold">CONTRIBUTORS</div>
               <div className="overflow-x-auto w-full">
                 <table className="table w-full">
-                  <tbody>{contributors(metadata.hypercert.contributors)}</tbody>
+                  <tbody>{contributors(metadata.hypercert?.contributors)}</tbody>
                 </table>
               </div>
               <div className="text-l font-bold">OWNERS</div>
@@ -115,7 +115,7 @@ export const HyperCertListItem = ({
                 <table className="table w-full">
                   <tbody>
                     {hypercertOwners(
-                      metadata.hypercert?.contributors?.value.map((val: string) => val.toLowerCase()),
+                      metadata.hypercert!.contributors!.value!.map((val: string) => val.toLowerCase()),
                       metadata.bounties?.map((val) => val.issuer.issuerAddress.toLowerCase())
                     )}
                   </tbody>

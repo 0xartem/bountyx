@@ -40,7 +40,7 @@ const convertToBountyxMetadata = (): BountyxMetadata[] => {
             receiverAddress: '0x0000000000000000000000000000000000000000',
           },
           reward: {
-            rewardAmount: parseInt(reward.rewardAmountUsd),
+            rewardAmount: parseInt((reward as any).rewardAmountUsd),
             rewardToken: bounty.rewardToken,
             rewardInToken: bounty.rewardInToken ?? false,
           },
