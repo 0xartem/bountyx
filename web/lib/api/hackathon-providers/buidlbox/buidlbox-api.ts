@@ -1,56 +1,74 @@
+import axios from "axios"
 import { BountyxMetadata } from '@/bountyxlib/types/bountyxdata'
 import { BountyxMerkleLeafData } from '@/../packages/bountyx-hyperdrop/src/types/bountyxmerkleleafdata'
 
-import { groupedBountyData } from './buidlbox-bounties'
+import challengesAndWinners from './challenges-and-winners.json'
+import { HypercertMetadata } from "@hypercerts-org/hypercerts-sdk"
 
-const convertToBountyxMetadata = (): BountyxMetadata[] => {
+const convertToBountyxMetadata = async (groupName: string): Promise<BountyxMetadata[]> => {
   const bountiesMetadata: BountyxMetadata[] = []
 
-  for (const groupedBounties of groupedBountyData) {
-    for (const bounty of groupedBounties.bounties) {
-      const partialBountyXMetadata = {
-        group: groupedBounties.group.groupDisplayName,
-        name: bounty.name,
-        description: bounty.description,
-        issuer: {
-          issuerName: bounty.submittedByOrgName,
-          issuerLogoUrl: bounty.submittedByOrgLogo,
+  for (const bounty of challengesAndWinners) {
+    const partialBountyXMetadata = {
+      group: groupName,
+      name: bounty.name,
+      description: bounty.description,
+      issuer: {
+        issuerName: bounty.submittedByOrgName,
+        issuerLogoUrl: bounty.submittedByOrgLogo,
+      },
+    }
+
+    if (bounty.rewardPool) {
+      bountiesMetadata.push({
+        ...partialBountyXMetadata,
+        reward: {
+          rewardAmount: bounty.rewardPool,
+          rewardToken: bounty.rewardToken,
+          rewardInToken: false,
         },
-      }
+      })
+    }
 
-      if (bounty.rewardPool) {
-        bountiesMetadata.push({
-          ...partialBountyXMetadata,
-          reward: {
-            rewardAmount: parseInt(bounty.rewardPool),
-            rewardToken: bounty.rewardToken,
-            rewardInToken: bounty.rewardInToken ?? false,
-          },
-        })
-      }
-
-      for (const reward of bounty.rewards) {
-        bountiesMetadata.push({
-          ...partialBountyXMetadata,
-          reward: {
-            rewardAmount: parseInt(reward.rewardAmountUsd),
-            rewardToken: bounty.rewardToken,
-            rewardInToken: bounty.rewardInToken ?? false,
-          },
-        })
-      }
+    for (const reward of bounty.rewards) {
+      bountiesMetadata.push({
+        ...partialBountyXMetadata,
+        reward: {
+          rewardAmount: reward.rewardAmountUsd,
+          rewardToken: bounty.rewardToken,
+          rewardInToken: false,
+        },
+      })
     }
   }
 
   return bountiesMetadata
 }
 
-export const getAllGroups = (): string[] => {
-  return groupedBountyData.map((item) => item.group.groupDisplayName)
+export const getHypercertMetadataFromWinner = async (bountyName: string): Promise<HypercertMetadata> => {
+  const hypercerMetadataOptions: HypercertMetadata[] = []
+
+  const bounty = challengesAndWinners.find(item => item.name === bountyName)
+  if (bounty && bounty.winners.length > 0) {
+    const winner = bounty.winners[0]
+    const hypercertMetadata: HypercertMetadata = {
+      name: winner.name,
+      description: winner.description,
+      image: winner.logoUrl!
+    }
+    hypercerMetadataOptions.push(hypercertMetadata)
+  }
+
+  console.log('Hypercerts:', hypercerMetadataOptions)
+  return hypercerMetadataOptions[0]
 }
 
-export const getHyperdropLeavesPublicData = (): BountyxMerkleLeafData[] => {
-  const bounties: BountyxMetadata[] = convertToBountyxMetadata()
+export const getAllGroups = (): string[] => {
+  return ['Eth Denver 2023']
+}
+
+export const getHyperdropLeavesPublicData = async (): Promise<BountyxMerkleLeafData[]> => {
+  const bounties: BountyxMetadata[] = await convertToBountyxMetadata("ETHDenver 2023")
   const bountyxMerkleLeafs: BountyxMerkleLeafData[] = []
   for (const bounty of bounties) {
     bountyxMerkleLeafs.push({
@@ -66,9 +84,9 @@ export const getHyperdropLeavesPublicData = (): BountyxMerkleLeafData[] => {
   return bountyxMerkleLeafs
 }
 
-export const getBountyXMetadataItem = (leafData: BountyxMerkleLeafData): BountyxMetadata => {
+export const getBountyXMetadataItem = async (leafData: BountyxMerkleLeafData): Promise<BountyxMetadata> => {
   //TODO: temp before persistency is built
-  const bountyxMetadataItems: BountyxMetadata[] = convertToBountyxMetadata()
+  const bountyxMetadataItems: BountyxMetadata[] = await convertToBountyxMetadata("ETHDenver 2023")
   const metadataItem = bountyxMetadataItems.find(
     (item) =>
       leafData.bountyName === item.name &&
