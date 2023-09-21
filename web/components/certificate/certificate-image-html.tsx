@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { BountyxMetadata } from '@/bountyxlib/types/bountyxdata'
 
-import { BountyIconListItem } from './bounty-icon-list-item'
+import { BountyIconListItem, HackathonIconListItem, ProjectIconListItem } from './bounty-icon-list-item'
 import { LocalCertData } from '@/lib/bountyx/bountyx-hypercert-utils'
 
 export default function CertificateImageHtml({
@@ -45,7 +45,15 @@ export default function CertificateImageHtml({
       <div
         className="border--slate-700 divide--slate-700 relative h-[525px] w-[375px] divide-y overflow-hidden rounded-3xl border-2 bg-base-200 bg-cover"
         style={{ backgroundImage: `url(${backgroundUrl})` }}>
-        <div className="my-4 mx-8">{renderBounties()}</div>
+        <div className="flex flex-row justify-between my-4 mx-8">
+          <div className='flex flex-col'>
+            <HackathonIconListItem logoUrl={'/sporky.png'} />
+            {/* <ProjectIconListItem logoUrl={localCertData.image} /> */}
+          </div>
+          <div className='flex flex-col'>
+            {renderBounties()}
+          </div>
+        </div>
         <div className=" absolute left-0 top-[300px] h-[225px] w-[375px] bg-gradient-to-r from-green-300 via-blue-500 to-purple-600">
           <div className="mx-10">
             <div className="my-4">
@@ -61,7 +69,7 @@ export default function CertificateImageHtml({
             {renderImpactBadges()}
           </div>
         </div>
-      </div>
+      </div >
     </>
   )
 }

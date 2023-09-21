@@ -1,5 +1,6 @@
 import AddressTagInput from '@/components/shared/ui/address-tag-input'
 import RangeSliderNumber from '@/components/shared/ui/range-slider-number'
+import { LocalCertData } from '@/lib/bountyx/bountyx-hypercert-utils'
 import React, { ChangeEvent, FormEvent } from 'react'
 
 interface ProjectInformationFormProps {
@@ -9,14 +10,6 @@ interface ProjectInformationFormProps {
   handleTagColorChange: (tag: string, color: string) => void
   mintHypercert: () => void
   hypercertMinted: boolean
-}
-
-interface LocalCertData {
-  name: string
-  description: string
-  external_url: string
-  contributors: string[]
-  additional_owners: string[]
 }
 
 const ProjectInformationForm: React.FC<ProjectInformationFormProps> = ({

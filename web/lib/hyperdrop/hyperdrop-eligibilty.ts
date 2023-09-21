@@ -1,12 +1,13 @@
 import * as merkleData from './merkle.json'
 import MerkleTree from 'merkletreejs'
 import keccak256 from 'keccak256'
-import { getBountyXMetadataItem, getHyperdropLeavesPublicData } from '../api/hackathon-providers/buidlbox/buidlbox-api'
+import { getBountyXMetadataItem, getHypercertMetadataFromWinner, getHyperdropLeavesPublicData } from '../api/hackathon-providers/buidlbox/buidlbox-api'
 import { BountyxMerkleLeafData } from '@/../packages/bountyx-hyperdrop/src/types/bountyxmerkleleafdata'
 import { BountyxMetadata } from '@/bountyxlib/types/bountyxdata'
 // import { solidityPackedKeccak256 } from 'ethers' //TODO: update to ethersv6
 import { hexlify, solidityKeccak256 } from 'ethers/lib/utils.js'
 import { readBountyXHyperDrop } from '../blockchain'
+import { HypercertMetadata } from '@hypercerts-org/hypercerts-sdk'
 
 const generateLeaf = (hyperdropLeaf: BountyxMerkleLeafData): Buffer => {
   return Buffer.from(
@@ -25,12 +26,13 @@ export type EligibleGroupedClaim = {
   proofs: `0x${string}`[][]
   merkleRoot: Buffer
   bounties: BountyxMetadata[]
+  hypercerts: HypercertMetadata[]
 }
 
 export const getEligibleHyperdropClaims = async (address: `0x${string}`): Promise<EligibleGroupedClaim> => {
   const leaves: Buffer[] = merkleData.tree.leaves.map((leaf) => Buffer.from(leaf.data))
   const merkleTree = new MerkleTree(leaves, keccak256, { sortPairs: true })
-  const hyperdropLeavesData: BountyxMerkleLeafData[] = getHyperdropLeavesPublicData()
+  const hyperdropLeavesData: BountyxMerkleLeafData[] = await getHyperdropLeavesPublicData()
 
   const eligibleGroupedClaim: EligibleGroupedClaim = {
     address,
@@ -38,6 +40,7 @@ export const getEligibleHyperdropClaims = async (address: `0x${string}`): Promis
     proofs: [],
     merkleRoot: merkleTree.getRoot(),
     bounties: [],
+    hypercerts: []
   }
 
   for (const bountyData of hyperdropLeavesData) {
@@ -58,7 +61,10 @@ export const getEligibleHyperdropClaims = async (address: `0x${string}`): Promis
     if (claimable) {
       eligibleGroupedClaim.leaves.push(leaf)
       eligibleGroupedClaim.proofs.push(proof)
-      eligibleGroupedClaim.bounties.push(getBountyXMetadataItem(bountyData))
+      const metadataItem: BountyxMetadata = await getBountyXMetadataItem(bountyData)
+      const hypercertMetadata: HypercertMetadata = await getHypercertMetadataFromWinner(metadataItem.name)
+      eligibleGroupedClaim.bounties.push(metadataItem)
+      eligibleGroupedClaim.hypercerts.push(hypercertMetadata)
     }
   }
 

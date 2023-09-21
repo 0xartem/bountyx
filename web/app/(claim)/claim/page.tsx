@@ -44,9 +44,10 @@ export default function Claim() {
   //   additional_owners: [],
   // })
   const [localCertData, setLocalCertData] = useState<LocalCertData>({
-    name: '',
-    description: '',
+    name: claim!.hypercerts[0].name,
+    description: claim!.hypercerts[0].description,
     external_url: '',
+    image: claim!.hypercerts[0].image,
     contributors: [address!],
     additional_owners: bounties.map((b) => (b.issuer.issuerAddress || `${b.issuer.issuerName}.bountyx.eth`) as AddressOrEns),
   })
@@ -56,7 +57,7 @@ export default function Claim() {
     name: localCertData.name,
     description: localCertData.description,
     external_url: localCertData.external_url,
-    image: '',
+    image: claim!.hypercerts[0].image,
     properties: [],
     bounties,
   })
