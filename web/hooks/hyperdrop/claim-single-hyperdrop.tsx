@@ -22,7 +22,7 @@ export const DEFAULT_ALLOWLIST_PERCENTAGE = 50
 
 const generateAndStoreTree = async (pairs: FractionOwnership[]) => {
   const tuples = pairs.map((p) => [p.owner, p.fraction])
-  const tree = StandardMerkleTree.of(tuples, ['address', 'uint256'])
+  const tree = StandardMerkleTree.of(tuples, ['string', 'uint256'])
   const cid = await getBountyxStorage().storeData(JSON.stringify(tree.dump()))
   return { cid, root: tree.root as HexString }
 }
