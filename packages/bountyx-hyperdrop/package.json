@@ -6,6 +6,7 @@
   "scripts": {
     "start": "pnpm generate && pnpm copy-merkle",
     "generate": "ts-node src/app.ts",
+    "pull-from-buidlbox": "ts-node src/buidl-box-projects.ts && cp ./challenges-and-winners.json ../../web/lib/api/hackathon-providers/buidlbox/",
     "copy-merkle": "cp ./merkle.json ../../web/lib/hyperdrop/"
   },
   "keywords": [],
@@ -21,6 +22,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "ethers": "^6.3.0",
     "keccak256": "^1.0.6",
     "merkletreejs": "^0.3.10",
