@@ -53,14 +53,17 @@ export const prepareBountyHypercertMintParams = (
   const futureRewardsFraction = (units * futureRewardsPercent) / 100
   const ownersDistributionUnits = units - futureRewardsFraction
   let distribution: FractionOwnership[] = []
-
+  
   owners.push(...contributorsList, ...additionalOwnersList)
   if (owners.length > 0) {
-    const fraction = ownersDistributionUnits / owners.length
+    const fraction = Math.floor(ownersDistributionUnits / owners.length)
+    const leftover = units - ((fraction * owners.length) + futureRewardsFraction)
     distribution.push(
       ...owners.map((owner) => {
-        const fractionRounded = Math.round(fraction)
-        return { owner, fraction: BigNumber.from(fractionRounded) }
+        if (owner === minter) {
+          return { owner, fraction: BigNumber.from(fraction + leftover) }
+        }
+        return { owner, fraction: BigNumber.from(fraction) }
       })
     )
     distribution.push({ owner: 'future rewards', fraction: BigNumber.from(futureRewardsFraction) })

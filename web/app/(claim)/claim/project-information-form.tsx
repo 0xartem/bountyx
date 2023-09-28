@@ -29,11 +29,11 @@ const ProjectInformationForm: React.FC<ProjectInformationFormProps> = ({
           mintHypercert()
         }
       }}>
-      <h1 className="font-bold">Project Information</h1>
+      <h1 className="font-bold text-xl ml-1">Project Information</h1>
       <div className="form-control w-full max-w-xs py-4">
         <label className="label">
-          <span className="label-text">What is your project name?</span>
-          <span className="label-text-alt">Required</span>
+          <span className="label-text text-lg">Project name</span>
+          <span className="label-text-alt text-base">Required</span>
         </label>
         <input
           type="text"
@@ -44,11 +44,11 @@ const ProjectInformationForm: React.FC<ProjectInformationFormProps> = ({
           onChange={(e) => handleDataChange('name', e.target.value)}
         />
       </div>
-      <div className="form-control w-full max-w-xs">
-        <div className="form-control w-full max-w-xs py-4">
+      <div className="form-control w-full max-w-xs gap-3">
+        <div className="form-control w-full max-w-xs">
           <label className="label">
-            <span className="label-text">What is your Project URL?</span>
-            <span className="label-text-alt">Required</span>
+            <span className="label-text text-lg">Project URL</span>
+            <span className="label-text-alt text-base">Required</span>
           </label>
           <input
             type="text"
@@ -73,10 +73,10 @@ const ProjectInformationForm: React.FC<ProjectInformationFormProps> = ({
           onAddressesChange={(newAddresses: string[]) => handleDataChange('additional_owners', newAddresses)}
           onTagColorChange={handleTagColorChange}
         />
-        <div className="form-control w-full max-w-xs py-4">
+        <div className="form-control w-full max-w-xs">
           <label className="label">
-            <span className="label-text">Description</span>
-            <span className="label-text-alt">Required</span>
+            <span className="label-text text-lg">Description</span>
+            <span className="label-text-alt text-base">Required</span>
           </label>
           <textarea
             className="textarea textarea-bordered h-24 w-full max-w-xs"

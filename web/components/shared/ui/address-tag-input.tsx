@@ -72,7 +72,7 @@ const AddressTagInput: React.FC<TagInputProps> = ({ label, secondLabel, addresse
   return (
     <div className="flex flex-col">
       <label className="label">
-        <span className="label-text">{label}</span>
+        <span className="label-text text-lg">{label}</span>
         {secondLabel && <span className="label-text-alt">{secondLabel}</span>}
       </label>
       <TagsInput
