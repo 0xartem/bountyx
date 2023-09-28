@@ -30,7 +30,7 @@ contract HyperDropScriptDeployLocal is Script {
     BountyXHyperDrop hyperDrop = new BountyXHyperDrop(hypercertMinter);
     console.log("HyperDrop Address:", address(hyperDrop));
 
-    bytes32 tempMerkleRoot = 0xc77b5e9ff523fdc90071fd6ec39e226ba6a5e78165768fe98763f4c65c95559e;
+    bytes32 tempMerkleRoot = 0x668789fcb3d0290f03678fd9f0e644d0de59bce794213b8c9bd3f35e4d4cb91a;
     hyperDrop.createHyperdrop(tempMerkleRoot);
 
     // stop broadcasting transactions
