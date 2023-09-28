@@ -49,9 +49,9 @@ export default function Claim() {
     external_url: '',
     image: claim!.hypercerts[0].image,
     contributors: [address!],
-    additional_owners: bounties.map((b) => (b.issuer.issuerAddress || `${b.issuer.issuerName}.bountyx.eth`) as AddressOrEns),
+    additional_owners: bounties.map((b) => (b.issuer.issuerAddress || `${b.issuer.issuerName.replace(/\s+/g, '').toLowerCase()}.eth`) as AddressOrEns),
   })
-  const debouncedLocalCertData = useDebounce(localCertData, 500)
+  const debouncedLocalCertData = useDebounce(localCertData, 100)
 
   const [metadata, setMetadata] = useState<HypercertMetadata & BountyxMetadataCollection>({
     name: localCertData.name,
@@ -138,36 +138,40 @@ export default function Claim() {
 
   return (
     <div className="flex flex-col lg:flex-row justify-center lg:justify-evenly items-center">
-      <div className="lg:mr-8">
-        <ProjectInformationForm
-          localCertData={localCertData}
-          handleDataChange={handleChange}
-          setFutureRewardsPercent={setFutureRewardsPercent}
-          handleTagColorChange={handleTagColorChange}
-          mintHypercert={mintHypercert}
-          hypercertMinted={hypercertMinted}
-        />
-      </div>
-      <div className="lg:flex-1">
-        <PieChart
-          data={ownersToFraction.map(({ owner, fraction }) => ({
-            id: owner.endsWith('.eth') ? owner : formatAddress(owner),
-            label: owner,
-            value: fraction.toNumber(),
-            color: tagColors[owner] ?? '#000000',
-          }))}
-        />
-      </div>
+      {!hypercertMinted &&
+        <>
+          <div className="lg:mr-8">
+            <ProjectInformationForm
+              localCertData={localCertData}
+              handleDataChange={handleChange}
+              setFutureRewardsPercent={setFutureRewardsPercent}
+              handleTagColorChange={handleTagColorChange}
+              mintHypercert={mintHypercert}
+              hypercertMinted={hypercertMinted}
+            />
+          </div>
+          <div className="lg:flex-1">
+            <PieChart
+              data={ownersToFraction.map(({ owner, fraction }) => ({
+                id: owner.endsWith('.eth') ? owner : formatAddress(owner),
+                label: owner,
+                value: fraction.toNumber(),
+                color: tagColors[owner] ?? '#c7c7c7',
+              }))}
+            />
+          </div>
+        </>
+      }
       <div className="lg:flex-1">
         <div className="h-[525px] w-[375px] bg-transparent" ref={certificateElementRef}>
-          <CertificateImageHtml localCertData={localCertData} bounties={bounties} backgroundUrl={''} />
+          <CertificateImageHtml localCertData={localCertData} bounties={bounties} />
         </div>
       </div>
       {showConfetti && (
         <Confetti
           width={window.innerWidth}
           height={window.innerHeight}
-          numberOfPieces={500}
+          numberOfPieces={5000}
           recycle={false} // Disable recycling
           run={showConfetti} // Control animation using the showConfetti state
         />

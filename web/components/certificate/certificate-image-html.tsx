@@ -4,15 +4,14 @@ import { BountyxMetadata } from '@/bountyxlib/types/bountyxdata'
 
 import { BountyIconListItem, HackathonIconListItem, ProjectIconListItem } from './bounty-icon-list-item'
 import { LocalCertData } from '@/lib/bountyx/bountyx-hypercert-utils'
+import { getEventTimeline } from '@/lib/api/hackathon-providers/event-timeline'
 
 export default function CertificateImageHtml({
   localCertData,
-  bounties,
-  backgroundUrl,
+  bounties
 }: {
   localCertData: LocalCertData
   bounties: BountyxMetadata[]
-  backgroundUrl: string
 }) {
   // Declare a new state variable, which we'll call "count"
 
@@ -38,19 +37,16 @@ export default function CertificateImageHtml({
     return impactScopeBadgeList
   }
 
-  const timeline = bounties.length > 0 && bounties[0].group === 'Eth Denver 2023' ? '2023-02-25 ⟶ 2023-03-04' : '2023-03-13 ⟶ 2023-03-31'
-
   return (
     <>
       <div
-        className="border--slate-700 divide--slate-700 relative h-[525px] w-[375px] divide-y overflow-hidden rounded-3xl border-2 bg-base-200 bg-cover"
-        style={{ backgroundImage: `url(${backgroundUrl})` }}>
+        className="border--slate-700 divide--slate-700 relative h-[525px] w-[375px] divide-y overflow-hidden rounded-3xl border-2 bg-gradient-to-r from-blue-500 to-green-300">
         <div className="flex flex-row justify-between my-4 mx-8">
-          <div className='flex flex-col'>
-            <HackathonIconListItem logoUrl={'/sporky.png'} />
-            {/* <ProjectIconListItem logoUrl={localCertData.image} /> */}
+          <div className='flex flex-col justify-center'>
+            <HackathonIconListItem logoUrl={'/fundingthecommons.png'} />
+            <ProjectIconListItem logoUrl={localCertData.image} />
           </div>
-          <div className='flex flex-col'>
+          <div className='flex flex-col justify-center'>
             {renderBounties()}
           </div>
         </div>
@@ -60,7 +56,7 @@ export default function CertificateImageHtml({
               <span className="font-sans text-3xl font-bold decoration-white antialiased">{localCertData.name}</span>
             </div>
             <div className="my-2">
-              <span className="text-small font-sans decoration-white antialiased">{timeline}</span>
+              <span className="text-small font-sans decoration-white antialiased">{getEventTimeline(bounties)}</span>
             </div>
             <div className="badge-outline badge mr-2">{bounties.at(0)?.group}</div>
             <div className="mt-10 mb-2 flex-row">

@@ -15,9 +15,9 @@ export default function EligibleClaimCard({ claim }: EligibleClaimCardProps) {
     return <div>No Eligible Claims</div>
   }
   return (
-    <div className="card w-80 bg-base-100 shadow-xl">
+    <div className="card w-80 shadow-xl bg-gradient-to-r from-blue-500 to-green-300">
       <figure className="px-4 pt-4">
-        <img src="/ethdenver-icon.jpeg" alt="Group" className="rounded-xl" />
+        <img src="/fundingthecommons.png" alt="Group" className="rounded-xl" />
       </figure>
       <div className="card-body py-4 items-center text-center">
         <h2 className="card-title">{claim.bounties[0].group}</h2>

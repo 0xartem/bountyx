@@ -13,6 +13,7 @@ export interface LocalCertData {
   name: string
   description: string
   external_url: string
+  image: string
   contributors: AddressOrEns[]
   additional_owners: AddressOrEns[]
 }
@@ -55,21 +56,14 @@ export const prepareBountyHypercertMintParams = (
 
   owners.push(...contributorsList, ...additionalOwnersList)
   if (owners.length > 0) {
-    let futureRewardAdded = false
     const fraction = ownersDistributionUnits / owners.length
     distribution.push(
       ...owners.map((owner) => {
         const fractionRounded = Math.round(fraction)
-        if (owner === minter) {
-          futureRewardAdded = true
-          return { owner, fraction: BigNumber.from(fractionRounded + futureRewardsFraction) }
-        }
         return { owner, fraction: BigNumber.from(fractionRounded) }
       })
     )
-    if (!futureRewardAdded) {
-      distribution.push({ owner: minter, fraction: BigNumber.from(futureRewardsFraction) })
-    }
+    distribution.push({ owner: 'future rewards', fraction: BigNumber.from(futureRewardsFraction) })
   } else {
     distribution = [{ owner: minter!, fraction: BigNumber.from(units) }]
   }

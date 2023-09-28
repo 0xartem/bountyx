@@ -9,7 +9,7 @@ interface RangeSliderNumberProps {
 
 const RangeSliderNumber = ({ updateValue, defaultValue = 30, maxValue = 70 }: RangeSliderNumberProps) => {
   const [value, setValue] = useState(defaultValue)
-  const debouncedValue = useDebounce(value, 500)
+  const debouncedValue = useDebounce(value, 100)
   const sliderRef = useRef<HTMLInputElement>(null)
   const numberDisplayRef = useRef<HTMLDivElement>(null)
 

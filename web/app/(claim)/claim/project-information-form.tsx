@@ -67,7 +67,7 @@ const ProjectInformationForm: React.FC<ProjectInformationFormProps> = ({
           onTagColorChange={handleTagColorChange}
         />
         <AddressTagInput
-          label="Additional Owners"
+          label="Sponsors & Friends"
           secondLabel="Optional"
           addresses={localCertData.additional_owners}
           onAddressesChange={(newAddresses: string[]) => handleDataChange('additional_owners', newAddresses)}

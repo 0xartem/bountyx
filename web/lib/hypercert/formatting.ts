@@ -3,7 +3,7 @@ import { isAddress } from 'ethers/lib/utils.js'
 import { assertNever } from './common'
 import _ from 'lodash'
 
-export type AddressOrEns = `0x${string}` | `${string}.eth`
+export type AddressOrEns = `0x${string}` | `${string}.eth` | 'future rewards'
 
 export const formatScope = (scopeLabel: string) => scopeLabel.toLowerCase().replaceAll(/\s+/g, '-').trim()
 
@@ -97,7 +97,12 @@ export const getOpenSeaFractionUrl = (tokenId: string, contractAddress: string) 
   return `https://testnets.opensea.io/assets/goerli/${contractAddress}/${BigNumber.from(tokenId).toNumber()}`
 }
 
-export const formatAddress = (address: string) => `${address.slice(0, 4)}...${address.slice(-4)}`
+export const formatAddress = (address: string) => {
+  if (address.length > 14) {
+    return `${address.slice(0, 4)}...${address.slice(-4)}`
+  }
+  return address
+}
 
 /**
  * Prefix cid with `ipfs://` if it's not already
