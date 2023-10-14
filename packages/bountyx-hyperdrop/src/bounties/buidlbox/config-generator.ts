@@ -51,7 +51,7 @@ const convertToBountyxMetadata = (groupName: string): BountyxMetadata[] => {
 };
 
 export const getHyperdropLeavesData = (): BountyxMerkleLeafData[] => {
-  const bounties: BountyxMetadata[] = convertToBountyxMetadata("ETHDenver 2023");
+  const bounties: BountyxMetadata[] = convertToBountyxMetadata("Fund Public Goods");
   const bountyxMerkleLeafs: BountyxMerkleLeafData[] = [];
   for (const bounty of bounties) {
     bountyxMerkleLeafs.push({

@@ -1,10 +1,6 @@
 import axios from "axios";
 import { writeFileSync } from "fs";
 
-const hackathons = {
-  ["7188260a-2241-4b6f-b8ab-f71842dbe944"]: "Eth Denver 2023"
-}
-
 const getHackathons = async (size: number): Promise<any[]> => {
   const response = await axios.get(
     `https://api.buidlbox.io/buidlbox/v1/hackathons?size=${size}`
@@ -25,7 +21,7 @@ const getChallengesByPage = async (hackathonId: string, page: number): Promise<a
 
 const getWinnersByChallenge = async (hackathonId: string, challengeId: string): Promise<any> => {
   const response = await axios.get(
-    `https://api.buidlbox.io/buidlbox/v1/hackathons/${hackathonId}/challenges/${challengeId}/projects?isWinner=true}`
+    `https://api.buidlbox.io/buidlbox/v1/hackathons/${hackathonId}/challenges/${challengeId}/projects?isWinner=true`
   );
   return response.data.projects;
 };
@@ -52,7 +48,7 @@ const getAllChallenges = async (hackathonId: string): Promise<any> => {
 
 const getEthDenverChallengesAndWinners = async (limit: number): Promise<any> => {
   const hackathons = await getHackathons(limit)
-  const targetHackathon = findHackathonByName(hackathons, "ETHDenver 2023")
+  const targetHackathon = findHackathonByName(hackathons, "Fund Public Goods")
   return await getAllChallenges(targetHackathon.hackathonId)
 }
 

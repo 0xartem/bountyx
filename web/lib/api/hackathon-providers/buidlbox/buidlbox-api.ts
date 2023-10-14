@@ -67,8 +67,8 @@ export const getAllGroups = (): string[] => {
   return ['Eth Denver 2023']
 }
 
-export const getHyperdropLeavesPublicData = async (): Promise<BountyxMerkleLeafData[]> => {
-  const bounties: BountyxMetadata[] = await convertToBountyxMetadata("ETHDenver 2023")
+export const getHyperdropLeavesPublicData = async (groupName: string = 'Fund Public Goods'): Promise<BountyxMerkleLeafData[]> => {
+  const bounties: BountyxMetadata[] = await convertToBountyxMetadata(groupName)
   const bountyxMerkleLeafs: BountyxMerkleLeafData[] = []
   for (const bounty of bounties) {
     bountyxMerkleLeafs.push({
@@ -86,7 +86,7 @@ export const getHyperdropLeavesPublicData = async (): Promise<BountyxMerkleLeafD
 
 export const getBountyXMetadataItem = async (leafData: BountyxMerkleLeafData): Promise<BountyxMetadata> => {
   //TODO: temp before persistency is built
-  const bountyxMetadataItems: BountyxMetadata[] = await convertToBountyxMetadata("ETHDenver 2023")
+  const bountyxMetadataItems: BountyxMetadata[] = await convertToBountyxMetadata("Fund Public Goods")
   const metadataItem = bountyxMetadataItems.find(
     (item) =>
       leafData.bountyName === item.name &&

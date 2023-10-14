@@ -25,7 +25,7 @@ export function NavigationMenuGeneral() {
   return (
     <NavigationMenu className="self-center">
       <NavigationMenuList className="w-full">
-        <NavigationMenuItem>
+        {/* <NavigationMenuItem>
           <LinkComponent href="/minthypercert">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>Mint A Bounty Hypercert</NavigationMenuLink>
           </LinkComponent>
@@ -34,7 +34,7 @@ export function NavigationMenuGeneral() {
           <LinkComponent href="/certificates">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>My Bounty Hypercerts</NavigationMenuLink>
           </LinkComponent>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
       </NavigationMenuList>
     </NavigationMenu>
   )
