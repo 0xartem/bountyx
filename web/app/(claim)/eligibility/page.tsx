@@ -23,10 +23,10 @@ export default function Eligibility() {
 
   return (
     <div>
-      <h1 className="text-5xl font-bold">
+      <h1 className="text-4xl font-bold">
         {eligibleClaims.length > 0 ? 'Congrats! You are eligible for a Hypercert!' : 'Ah shoot. No Hypercert for you today :('}
       </h1>
-      <p className="py-6">
+      <p className="py-6 text-2xl">
         {eligibleClaims.length > 0
           ? 'You are now eligible to claim one or more Bounty Hypercerts. Celebrate your victory and get recognized within a community for creating meaningful impact!'
           : 'You are not eligible to claim a Hypercert today. But it just means you can keep participating in different hackathons, applying for bounties, and then come back to manifest your impact!'}
