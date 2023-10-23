@@ -1,0 +1,62 @@
+{
+    "$id": "schema/projectdata.json",
+    "title": "Project metadata",
+    "description": "Project metadata structure",
+    "type": "object",
+    "properties": {
+        "group": {
+            "type": "string",
+            "description": "Name of the group the project bolongs to"
+        },
+        "name": {
+            "type": "string",
+            "description": "Name of the project"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description of the project"
+        },
+        "projectUrl": {
+            "type": "string",
+            "description": "URL of the project"
+        },
+        "repositoryProjectUrl": {
+            "type": "string",
+            "description": "URL of the project repository"
+        },
+        "logoUrl": {
+            "type": "string",
+            "description": "URL of the project logo"
+        },
+        "contributors": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Addresses of the project contributors"
+        },
+        "receiver": {
+            "type": "object",
+            "description": "Receiver of the hypercert",
+            "properties": {
+                "receiverAddress": {
+                    "type": "string",
+                    "desription": "The address that eligible to receive or have received the bounty"
+                }
+            },
+            "required": [
+                "receiverAddress"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "group",
+        "name",
+        "description",
+        "projectUrl",
+        "logoUrl",
+        "contributors",
+        "receiver"
+    ]
+}
