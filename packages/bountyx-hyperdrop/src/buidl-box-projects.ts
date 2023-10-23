@@ -55,6 +55,6 @@ const getEthDenverChallengesAndWinners = async (limit: number): Promise<any> => 
 getEthDenverChallengesAndWinners(100)
   .then((challenges) => {
     console.log(challenges.length);
-    writeFileSync("challenges-and-winners.json", JSON.stringify(challenges));
+    writeFileSync("data/challenges-and-winners.json", JSON.stringify(challenges));
   })
   .catch((err) => {});

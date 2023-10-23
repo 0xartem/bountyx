@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "pnpm generate && pnpm copy-merkle",
-    "generate": "ts-node src/app.ts",
-    "pull-from-buidlbox": "ts-node src/buidl-box-projects.ts && cp ./challenges-and-winners.json ../../web/lib/api/hackathon-providers/buidlbox/",
-    "copy-merkle": "cp ./merkle.json ../../web/lib/hyperdrop/"
+    "start:bountyx": "pnpm generat-bountyx && pnpm copy-merkle",
+    "start:ftc": "pnpm generate-ftc && pnpm copy-merkle",
+    "generate-bountyx": "ts-node src/bountyx-merkle-app.ts",
+    "generate-ftc": "ts-node src/address-merkle-app.ts",
+    "pull-from-buidlbox": "ts-node src/buidl-box-projects.ts && cp ./data/challenges-and-winners.json ../../web/lib/api/hackathon-providers/buidlbox/",
+    "copy-merkle": "cp ./data/merkle.json ../../web/lib/hyperdrop/"
   },
   "keywords": [],
   "author": "",

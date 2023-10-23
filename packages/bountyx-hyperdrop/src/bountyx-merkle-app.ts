@@ -1,12 +1,12 @@
 import fs from "fs"; // Filesystem
 import path from "path"; // Path routing
-import Generator from "./generator"; // Generator
 import { logger } from "./utils/logger"; // Logging
 import { BountyxMerkleLeafData } from "./types/bountyxmerkleleafdata";
-import { getHyperdropLeavesData } from "./bounties/buidlbox/config-generator";
+import { getHyperdropLeavesData } from "./leaves-data/config-generator";
+import BountyxMerkleProofGenerator from "./generators/bountyx-merkle-proof-generator";
 
 // Config file path
-const configPath: string = path.join(__dirname, "../config.json");
+const configPath: string = path.join(__dirname, "../data/bountyx-config.json");
 
 /**
  * Throws error and exists process
@@ -18,11 +18,11 @@ function throwErrorAndExit(error: string): void {
 }
 
 (async () => {
-  const bountyxMerkleLeafs: BountyxMerkleLeafData[] = getHyperdropLeavesData();
+  const merkleLeaves: BountyxMerkleLeafData[] = getHyperdropLeavesData();
   fs.writeFileSync(
     configPath,
     JSON.stringify({
-      hyperdrop: bountyxMerkleLeafs
+      hyperdrop: merkleLeaves
     })
   );
 
@@ -44,6 +44,6 @@ function throwErrorAndExit(error: string): void {
   const hyperdrop: BountyxMerkleLeafData[] = configData.hyperdrop;
 
   // Initialize and call generator
-  const generator = new Generator(hyperdrop);
+  const generator = new BountyxMerkleProofGenerator(hyperdrop);
   await generator.process();
 })();

@@ -1,7 +1,9 @@
-import { BountyxMetadata } from "../../types/bountyxdata";
-import { BountyxMerkleLeafData } from "../../types/bountyxmerkleleafdata";
-import challengesAndWinners from "../../../challenges-and-winners.json"
+import { BountyxMetadata } from "../types/bountyxdata";
+import { BountyxMerkleLeafData } from "../types/bountyxmerkleleafdata";
+import challengesAndWinners from "../../data/challenges-and-winners.json"
+import ftcProjects from "../../data/ftc-projects.json"
 import getWinnerAddress from "./winner-address-api";
+import { HyperdropRecipient } from "../generators/address-merkle-proof-generator";
 
 const convertToBountyxMetadata = (groupName: string): BountyxMetadata[] => {
   const bountiesMetadata: BountyxMetadata[] = [];
@@ -72,3 +74,11 @@ export const getHyperdropLeavesData = (): BountyxMerkleLeafData[] => {
   }
   return bountyxMerkleLeafs;
 };
+
+export const getHyperdropAddressLeavesData = (): HyperdropRecipient[] => {
+  const hyperdropRecipients: HyperdropRecipient[] = []
+  for (const project of ftcProjects) {
+    hyperdropRecipients.push({ address: project.receiver.receiverAddress })
+  }
+  return hyperdropRecipients
+}

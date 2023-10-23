@@ -1,0 +1,17 @@
+[
+    {
+        "group": "Ftc Residency",
+        "name": "HackerDrop",
+        "description": "HackerDrop is a drop for hackers",
+        "projectUrl": "https://hyperdrop.eth.link",
+        "repositoryProjectUrl": "https://github.com/0xartem/bountyx",
+        "logoUrl": "https://cdn-0.emojis.wiki/emoji-pics/apple/woman-technologist-apple.png",
+        "contributors": [
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720"
+        ],
+        "receiver": {
+            "receiverAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        }
+    }
+]

@@ -2,14 +2,15 @@ import fs from "fs"; // Filesystem
 import path from "path"; // Path
 import keccak256 from "keccak256"; // Keccak256 hashing
 import MerkleTree from "merkletreejs"; // MerkleTree.js
-import { logger } from "./utils/logger"; // Logging
+import { logger } from "../utils/logger"; // Logging
 import { getAddress, solidityPackedKeccak256 } from "ethers"; // TODO: update to ethersv6
-import { BountyxMerkleLeafData } from "./types/bountyxmerkleleafdata";
+import { BountyxMerkleLeafData } from "../types/bountyxmerkleleafdata";
+import { IMerkleProofGenerator } from "./merkle-proof-generators";
 
 // Output file path
-const outputPath: string = path.join(__dirname, "../merkle.json");
+const outputPath: string = path.join(__dirname, "../../data/merkle.json");
 
-export default class Generator {
+export default class BountyxMerkleProofGenerator implements IMerkleProofGenerator {
   // Airdrop recipients
   recipients: BountyxMerkleLeafData[] = [];
 
@@ -57,13 +58,13 @@ export default class Generator {
   }
 
   async process(): Promise<void> {
-    logger.info("Generating Merkle tree.");
+    logger.info("Generating bountyx Merkle tree.");
 
     // Generate merkle tree
     const merkleTree = new MerkleTree(
       // Generate leafs
-      this.recipients.map((hyperdropLeafData) =>
-        this.generateLeaf(hyperdropLeafData)
+      this.recipients.map((leafData) =>
+        this.generateLeaf(leafData)
       ),
       // Hashing function
       keccak256,
